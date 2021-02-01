@@ -19,7 +19,7 @@ public class main {
         FhirContext ctx = FhirContext.forR5();
         ctx.setRestfulClientFactory(new OkHttpRestfulClientFactory(ctx));
 
-        String serverBase = "https://hapi.fhir.org/baseR5";
+        String serverBase = "https://hapi.fhir.org/baseR4";
         IGenericClient client = ctx.newRestfulGenericClient(serverBase);
         client.setEncoding(EncodingEnum.XML);
         client.setPrettyPrint(true);
@@ -45,6 +45,10 @@ public class main {
         CRUDmethods.read();
         printDashedLine();
         CRUDmethods.delete();
+        printDashedLine();
+        CRUDmethods.create();
+        printDashedLine();
+        CRUDmethods.update();
 
     }
 
