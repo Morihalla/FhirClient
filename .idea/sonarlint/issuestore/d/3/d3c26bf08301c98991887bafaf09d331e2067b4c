@@ -1,10 +1,14 @@
 
 b	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(·š†‡
-U	java:S106!"9Replace this use of System.out or System.err by a logger.(ËØª¯8ƒòüèõ.
-0
-java:S1220""Move this file to a named package.
-Z	java:S106#"9Replace this use of System.out or System.err by a logger.(Õ³•óúÿÿÿÿ8Õóºéõ.
 i
 java:S1223"LRename this method to prevent any misunderstanding or make it a constructor.(Çµí‘8Ã®¾èõ.
+0
+java:S1220""Move this file to a named package.
 Q
 java:S1128"4Remove this unused import 'org.w3c.dom.ls.LSOutput'.(Ò½¾Š8Èˆüèõ.
+Z	java:S106#"9Replace this use of System.out or System.err by a logger.(Õ³•óúÿÿÿÿ8Õóºéõ.
+U	java:S106!"9Replace this use of System.out or System.err by a logger.(ËØª¯8ƒòüèõ.
+X
+java:S1854&"6Remove this useless assignment to local variable "ai".(œÁçışÿÿÿÿ8úè°êõ.
+I
+java:S1481&"'Remove this unused "ai" local variable.(œÁçışÿÿÿÿ8úè°êõ.

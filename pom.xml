@@ -39,12 +39,20 @@
             <artifactId>hapi-fhir-validation-resources-r5</artifactId>
             <version>5.2.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ca.uhn.hapi.fhir/restful-server-example -->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/ca.uhn.hapi.fhir/restful-server-example &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi.fhir</groupId>-->
+<!--            <artifactId>restful-server-example</artifactId>-->
+<!--            <version>5.2.1</version>-->
+<!--        </dependency>-->
+        <!-- For use of OkHttp -->
+        <!-- https://mvnrepository.com/artifact/ca.uhn.hapi.fhir/hapi-fhir-client-okhttp -->
         <dependency>
             <groupId>ca.uhn.hapi.fhir</groupId>
-            <artifactId>restful-server-example</artifactId>
+            <artifactId>hapi-fhir-client-okhttp</artifactId>
             <version>5.2.1</version>
         </dependency>
+
 
 
     </dependencies>
