@@ -9,6 +9,7 @@ import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
 import org.hl7.fhir.r5.model.Bundle;
 import org.hl7.fhir.r5.model.IdType;
+import test.gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -88,6 +89,8 @@ public class main {
         //Show first result
         System.out.println("Loaded " + bundle.getTotal() + " Allergies/Intolerances!");
         System.out.println(bundle.getEntry().get(0).getResource().getId());
+
+        gui.initFrame();
 
 
     }
