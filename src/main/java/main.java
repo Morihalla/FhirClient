@@ -8,7 +8,6 @@ import ca.uhn.fhir.util.BundleUtil;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
 import org.hl7.fhir.r5.model.Bundle;
-import org.hl7.fhir.r5.model.CodeableConcept;
 import org.hl7.fhir.r5.model.IdType;
 
 import java.io.IOException;
@@ -34,6 +33,8 @@ public class main {
         AllergyIntolerance allergyIntolerance = new AllergyIntolerance();
         allergyIntolerance.setId("example");
 
+
+        //CRUD-operations
         MethodOutcome createOutcome = client.create()
                 .resource(allergyIntolerance)
                 .execute();
@@ -63,15 +64,31 @@ public class main {
         //Show results
         System.out.println("Created: " + createOutcome.getId());
         printDashedLine();
-        System.out.println("Read: " + readOutcome.getId());;
+        System.out.println("Read: " + readOutcome.getId());
+        ;
         printDashedLine();
         System.out.println("Updated: " + updateOutcome.getId());
         printDashedLine();
         System.out.println("Deleted: " + deleteOutcome.getId());
+
         printDashedLine();
 
+        //Create list of every AI present
+        List<IBaseResource> allergiesIntolerances = new ArrayList<>();
+        allergiesIntolerances.addAll(BundleUtil.toListOfResources(ctx, bundle));
+
+        //Show result
+        System.out.println("Loaded " + allergiesIntolerances.size() + " Allergies/Intolerances!");
+        for (IBaseResource ai : allergiesIntolerances) {
+            System.out.println(ai.getIdElement().getValueAsString());
+        }
+
+        printDashedLine();
+
+        //Show first result
         System.out.println("Loaded " + bundle.getTotal() + " Allergies/Intolerances!");
         System.out.println(bundle.getEntry().get(0).getResource().getId());
+
 
     }
 

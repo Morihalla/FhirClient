@@ -1,5 +1,4 @@
 import okhttp3.*;
-import org.hl7.fhir.r5.model.AllergyIntolerance;
 
 import java.io.IOException;
 
