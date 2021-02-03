@@ -3,7 +3,6 @@ package test;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
-import org.hl7.fhir.r5.model.Resource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class GUI {
+public class gui {
 
     public static void initFrame(MethodOutcome createMethod,
                                  AllergyIntolerance readMethod,
@@ -54,10 +53,10 @@ public class GUI {
 
 
         // Link actions to buttons
-        addActionListenerMethod(create,result,"Created: ",createMethod);
-        addActionListenerResource(read,result,"Read: ",readMethod);
-        addActionListenerMethod(update,result,"Updated: ",updateMethod);
-        addActionListenerMethod(delete,result,"Deleted: ",deleteMethod);
+        util.addActionListenerMethod(create, result, "Created: ", createMethod);
+        util.addActionListenerResource(read, result, "Read: ", readMethod);
+        util.addActionListenerMethod(update, result, "Updated: ", updateMethod);
+        util.addActionListenerMethod(delete, result, "Deleted: ", deleteMethod);
         searchAll.addActionListener(new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
@@ -76,14 +75,12 @@ public class GUI {
 
         //Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, mb);
-
         JLabel rawCodeLabel = new JLabel("Raw code");
         frame.getContentPane().add(BorderLayout.WEST, rawCodeLabel);
-
         frame.getContentPane().add(BorderLayout.CENTER, result);
-
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
 
+        // Scroll enabled
         JScrollPane scroll = new JScrollPane(result,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -91,27 +88,5 @@ public class GUI {
         frame.add(scroll);
         frame.setVisible(true);
 
-
-
-
     }
-
-    public static void addActionListenerMethod(JButton button, JTextArea result, String text, MethodOutcome method){
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                result.setText(text+method.getId());
-            }
-        });
-    }
-
-    public static void addActionListenerResource(JButton button, JTextArea result, String text, Resource resource) {
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                result.setText(text+resource.getId());
-            }
-        });
-    }
-
 }
