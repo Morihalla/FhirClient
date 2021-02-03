@@ -9,11 +9,12 @@ import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
 import org.hl7.fhir.r5.model.Bundle;
 import org.hl7.fhir.r5.model.IdType;
-import test.gui;
+import test.GUI;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class main {
 
@@ -34,7 +35,6 @@ public class main {
         AllergyIntolerance allergyIntolerance = new AllergyIntolerance();
         allergyIntolerance.setId("example");
 
-
         //CRUD-operations
         MethodOutcome createOutcome = client.create()
                 .resource(allergyIntolerance)
@@ -54,29 +54,28 @@ public class main {
                 .resourceById(new IdType("AllergyIntolerance", "1506"))
                 .execute();
 
+
         // Search all IA's present
-        Bundle bundle = client
+        Bundle searchAll = client
                 .search()
                 .forResource(AllergyIntolerance.class)
                 .count(100)
                 .returnBundle(Bundle.class)
                 .execute();
 
-        //Show results
-        System.out.println("Created: " + createOutcome.getId());
-        printDashedLine();
-        System.out.println("Read: " + readOutcome.getId());
-        ;
-        printDashedLine();
-        System.out.println("Updated: " + updateOutcome.getId());
-        printDashedLine();
-        System.out.println("Deleted: " + deleteOutcome.getId());
-
-        printDashedLine();
+//        //Show results
+//        System.out.println("Created: " + createOutcome.getId());
+//        printDashedLine();
+//        System.out.println("Read: " + readOutcome.getId());
+//        printDashedLine();
+//        System.out.println("Updated: " + updateOutcome.getId());
+//        printDashedLine();
+//        System.out.println("Deleted: " + deleteOutcome.getId());
+//        printDashedLine();
 
         //Create list of every AI present
         List<IBaseResource> allergiesIntolerances = new ArrayList<>();
-        allergiesIntolerances.addAll(BundleUtil.toListOfResources(ctx, bundle));
+        allergiesIntolerances.addAll(BundleUtil.toListOfResources(ctx, searchAll));
 
         //Show result
         System.out.println("Loaded " + allergiesIntolerances.size() + " Allergies/Intolerances!");
@@ -87,16 +86,18 @@ public class main {
         printDashedLine();
 
         //Show first result
-        System.out.println("Loaded " + bundle.getTotal() + " Allergies/Intolerances!");
-        System.out.println(bundle.getEntry().get(0).getResource().getId());
+        System.out.println("Loaded " + searchAll.getTotal() + " Allergies/Intolerances!");
+        System.out.println(searchAll.getEntry().get(0).getResource().getId());
 
-        gui.initFrame();
+        GUI.initFrame(createOutcome, readOutcome, updateOutcome, deleteOutcome,allergiesIntolerances);
 
 
     }
 
+
     public static void printDashedLine() {
         System.out.println("-" .repeat(100));
+
     }
 
 
