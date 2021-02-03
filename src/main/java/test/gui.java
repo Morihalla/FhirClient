@@ -35,8 +35,10 @@ public class gui {
         mb.add(file);
         mb.add(searchAll);
 
-        // Text Area at the Center
-        JTextArea result = new JTextArea();
+        // Design Output
+        JLabel result = new JLabel();
+        result.setForeground(Color.BLUE.darker());
+        result.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //Creating the panel at bottom
         JPanel panel = new JPanel();
@@ -44,25 +46,25 @@ public class gui {
         JTextField tf = new JTextField("Enter code here", 10);
 
         // Creating Buttons
-        JButton create = new JButton("Create");
-        JButton read = new JButton("Read");
-        JButton update = new JButton("Update");
-        JButton delete = new JButton("Delete");
+        JButton createBtn = new JButton("Create");
+        JButton readBtn = new JButton("Read");
+        JButton updateBtn = new JButton("Update");
+        JButton deleteBtn = new JButton("Delete");
 
 
         // Link actions to buttons
-        util.addActionListenerMethod(create, result, "Created: ", createMethod);
-        util.addActionListenerResource(read, result, "Read: ", readMethod);
-        util.addActionListenerMethod(update, result, "Updated: ", updateMethod);
-        util.addActionListenerMethod(delete, result, "Deleted: ", deleteMethod);
+        util.addActionListenerMethod(createBtn, result, "Created: ", createMethod);
+        util.addActionListenerResource(readBtn, result, "Read: ", readMethod);
+        util.addActionListenerMethod(updateBtn, result, "Updated: ", updateMethod);
+        util.addActionListenerMethod(deleteBtn, result, "Deleted: ", deleteMethod);
         searchAll.addActionListener(e -> result.setText("Loaded " + ai.size() + " Allergies/Intolerances!"));
 
         panel.add(label);
         panel.add(tf);
-        panel.add(create);
-        panel.add(read);
-        panel.add(update);
-        panel.add(delete);
+        panel.add(createBtn);
+        panel.add(readBtn);
+        panel.add(updateBtn);
+        panel.add(deleteBtn);
 
         //Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, mb);

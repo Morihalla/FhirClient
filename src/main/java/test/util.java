@@ -6,8 +6,12 @@ import ca.uhn.fhir.rest.client.api.IGenericClient;
 import org.hl7.fhir.r5.model.Resource;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class util {
 
@@ -16,16 +20,42 @@ public class util {
     static String serverBase = "https://hapi.fhir.org/baseR5";
     public static IGenericClient client = ctx.newRestfulGenericClient(serverBase);
 
+
+
     // ActionListener Add-method
-    public static void addActionListenerMethod(JButton button, JTextArea result, String text, MethodOutcome method) {
-        button.addActionListener(e -> result.setText(text + method.getId()));
+    public static void addActionListenerMethod(JButton button, JLabel result, String text, MethodOutcome method) {
+        button.addActionListener(e -> result.setText(text + method.getId().toString()));
+        String url = method.getId().toString();
+        util.addMouseAction(result,url);
     }
 
-    public static void addActionListenerResource(JButton button, JTextArea result, String text, Resource resource) {
-        button.addActionListener(new ActionListener() {
+    public static void addActionListenerResource(JButton button, JLabel result, String text, Resource resource) {
+        button.addActionListener(e -> result.setText(text + resource.getId()));
+        String url = resource.getId();
+        util.addMouseAction(result,url);
+    }
+
+    public static void addMouseAction (JLabel click,String link) {
+        click.addMouseListener(new MouseAdapter() {
+
             @Override
-            public void actionPerformed(ActionEvent e) {
-                result.setText(text + resource.getId());
+            public void mouseClicked(MouseEvent e) {
+                try {
+
+                    Desktop.getDesktop().browse(new URI(link));
+
+                } catch (IOException | URISyntaxException e1) {
+                    e1.printStackTrace();
+                }            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // the mouse has entered the label
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // the mouse has exited the label
             }
         });
     }
