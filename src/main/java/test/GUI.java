@@ -3,6 +3,7 @@ package test;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
+import org.hl7.fhir.r5.model.Resource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,38 +41,23 @@ public class GUI {
         // Text Area at the Center
         JTextArea result = new JTextArea();
 
-        //Creating the panel at bottom and adding components
+        //Creating the panel at bottom
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Entry");
         JTextField tf = new JTextField("Enter code here", 10);
+
+        // Creating Buttons
         JButton create = new JButton("Create");
-        create.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                result.setText("Created: " + createMethod.getId());
-            }
-        });
         JButton read = new JButton("Read");
-        read.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                result.setText("Read: " + readMethod.getId());
-            }
-        });
         JButton update = new JButton("Update");
-        update.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                result.setText("Updated: " + updateMethod.getId());
-            }
-        });
         JButton delete = new JButton("Delete");
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                result.setText("Deleted: " + deleteMethod.getId());
-            }
-        });
+
+
+        // Link actions to buttons
+        addActionListenerMethod(create,result,"Created: ",createMethod);
+        addActionListenerResource(read,result,"Read: ",readMethod);
+        addActionListenerMethod(update,result,"Updated: ",updateMethod);
+        addActionListenerMethod(delete,result,"Deleted: ",deleteMethod);
         searchAll.addActionListener(new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
@@ -80,7 +66,8 @@ public class GUI {
                                         }
                                     }
         );
-        panel.add(label); // Components Added using Flow Layout
+
+        panel.add(label);
         panel.add(tf);
         panel.add(create);
         panel.add(read);
@@ -105,5 +92,26 @@ public class GUI {
         frame.setVisible(true);
 
 
+
+
     }
+
+    public static void addActionListenerMethod(JButton button, JTextArea result, String text, MethodOutcome method){
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                result.setText(text+method.getId());
+            }
+        });
+    }
+
+    public static void addActionListenerResource(JButton button, JTextArea result, String text, Resource resource) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                result.setText(text+resource.getId());
+            }
+        });
+    }
+
 }

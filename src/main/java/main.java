@@ -63,16 +63,6 @@ public class main {
                 .returnBundle(Bundle.class)
                 .execute();
 
-//        //Show results
-//        System.out.println("Created: " + createOutcome.getId());
-//        printDashedLine();
-//        System.out.println("Read: " + readOutcome.getId());
-//        printDashedLine();
-//        System.out.println("Updated: " + updateOutcome.getId());
-//        printDashedLine();
-//        System.out.println("Deleted: " + deleteOutcome.getId());
-//        printDashedLine();
-
         //Create list of every AI present
         List<IBaseResource> allergiesIntolerances = new ArrayList<>();
         allergiesIntolerances.addAll(BundleUtil.toListOfResources(ctx, searchAll));
