@@ -28,20 +28,24 @@ public class gui {
         JMenuItem open = new JMenuItem("Open");
         JMenuItem save = new JMenuItem("Save as");
         JButton searchAll = new JButton("Search ALL");
+        JButton uploadBtn = new JButton("Upload");
 
         file.add(open);
         file.add(save);
 
         mb.add(file);
         mb.add(searchAll);
+        mb.add(uploadBtn);
 
         // Design Output
-        JTextArea output= new JTextArea();
+        JLabel rawText = new JLabel("Raw text");
 
-        JLabel result = new JLabel();
-        result.setForeground(Color.BLUE.darker());
-        result.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        JTextArea output = new JTextArea();
+        JLabel outputText = new JLabel();
+        outputText.setForeground(Color.BLUE.darker());
+        outputText.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        output.add(outputText);
 
         //Creating the panel at bottom
         JPanel panel = new JPanel();
@@ -50,25 +54,27 @@ public class gui {
 
         // Creating Buttons
         JButton createBtn = new JButton("Create");
-        JButton readBtn = new JButton("Read")
+        JButton readBtn = new JButton("Read");
         JButton updateBtn = new JButton("Update");
         JButton deleteBtn = new JButton("Delete");
 
 
         // Link actions to buttons
-        util.addActionListenerMethod(createBtn, result, "Created: ", createMethod);
-        util.addActionListenerResource(readBtn, result, "Read: ", readMethod);
-        util.addActionListenerMethod(updateBtn, result, "Updated: ", updateMethod);
-        util.addActionListenerMethod(deleteBtn, result, "Deleted: ", deleteMethod);
-        searchAll.addActionListener(e -> result.setText("Loaded " + ai.size() + " Allergies/Intolerances!"));
+        util.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
+        util.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
+        util.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
+        util.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
 
-        util.addMouseAction(createBtn,createMethod.getId().toString());
-        util.addMouseAction(readBtn,readMethod.getId());
-        util.addMouseAction(updateBtn,updateMethod.getId().toString());
-        util.addMouseAction(deleteBtn,deleteMethod.getId().toString());
+        searchAll.addActionListener(e -> outputText.setText("Loaded " + ai.size() + " Allergies/Intolerances!"));
 
+        util.uploadAction(uploadBtn);
 
+        util.addMouseAction(createBtn, createMethod.getId().toString());
+        util.addMouseAction(readBtn, readMethod.getId());
+        util.addMouseAction(updateBtn, updateMethod.getId().toString());
+        util.addMouseAction(deleteBtn, deleteMethod.getId().toString());
 
+        util.clickLink(outputText, outputText.toString());
 
 
         panel.add(label);
@@ -80,15 +86,15 @@ public class gui {
 
         //Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, mb);
-        JLabel resultLabel = new JLabel("Result");
-        frame.getContentPane().add(BorderLayout.WEST, resultLabel);
+        frame.getContentPane().add(BorderLayout.WEST, rawText);
         frame.getContentPane().add(BorderLayout.EAST, output);
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
 
         // Scroll enabled
-        JScrollPane scroll = new JScrollPane(result,
+        JScrollPane scroll = new JScrollPane(outputText,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 
         frame.add(scroll);
         frame.setVisible(true);
