@@ -27,10 +27,12 @@ public class util {
     // ActionListener Add-method
     public static void addActionListenerMethod(JButton button, JLabel result, String text, MethodOutcome method) {
         button.addActionListener(e -> result.setText(text + method.getId().toString()));
+        util.addMouseAction(button,method.getId().toString());
     }
 
     public static void addActionListenerResource(JButton button, JLabel result, String text, Resource resource) {
         button.addActionListener(e -> result.setText(text + resource.getId()));
+        util.addMouseAction(button,resource.getId());
     }
 
     public static void addMouseAction(JButton click, String link) {

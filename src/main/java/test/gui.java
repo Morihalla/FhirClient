@@ -69,11 +69,6 @@ public class gui {
 
         util.uploadAction(uploadBtn);
 
-        util.addMouseAction(createBtn, createMethod.getId().toString());
-        util.addMouseAction(readBtn, readMethod.getId());
-        util.addMouseAction(updateBtn, updateMethod.getId().toString());
-        util.addMouseAction(deleteBtn, deleteMethod.getId().toString());
-
         util.clickLink(outputText, outputText.toString());
 
 
