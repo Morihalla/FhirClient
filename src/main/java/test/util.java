@@ -18,12 +18,7 @@ public class util {
 
     // ActionListener Add-method
     public static void addActionListenerMethod(JButton button, JTextArea result, String text, MethodOutcome method) {
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                result.setText(text + method.getId());
-            }
-        });
+        button.addActionListener(e -> result.setText(text + method.getId()));
     }
 
     public static void addActionListenerResource(JButton button, JTextArea result, String text, Resource resource) {

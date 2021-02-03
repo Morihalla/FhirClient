@@ -6,8 +6,6 @@ import org.hl7.fhir.r5.model.AllergyIntolerance;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class gui {
@@ -57,14 +55,7 @@ public class gui {
         util.addActionListenerResource(read, result, "Read: ", readMethod);
         util.addActionListenerMethod(update, result, "Updated: ", updateMethod);
         util.addActionListenerMethod(delete, result, "Deleted: ", deleteMethod);
-        searchAll.addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-                                            result.setText("Loaded " + ai.size() + " Allergies/Intolerances!");
-
-                                        }
-                                    }
-        );
+        searchAll.addActionListener(e -> result.setText("Loaded " + ai.size() + " Allergies/Intolerances!"));
 
         panel.add(label);
         panel.add(tf);
