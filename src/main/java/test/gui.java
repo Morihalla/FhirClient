@@ -36,9 +36,12 @@ public class gui {
         mb.add(searchAll);
 
         // Design Output
+        JTextArea output= new JTextArea();
+
         JLabel result = new JLabel();
         result.setForeground(Color.BLUE.darker());
         result.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
 
         //Creating the panel at bottom
         JPanel panel = new JPanel();
@@ -47,7 +50,7 @@ public class gui {
 
         // Creating Buttons
         JButton createBtn = new JButton("Create");
-        JButton readBtn = new JButton("Read");
+        JButton readBtn = new JButton("Read")
         JButton updateBtn = new JButton("Update");
         JButton deleteBtn = new JButton("Delete");
 
@@ -59,6 +62,15 @@ public class gui {
         util.addActionListenerMethod(deleteBtn, result, "Deleted: ", deleteMethod);
         searchAll.addActionListener(e -> result.setText("Loaded " + ai.size() + " Allergies/Intolerances!"));
 
+        util.addMouseAction(createBtn,createMethod.getId().toString());
+        util.addMouseAction(readBtn,readMethod.getId());
+        util.addMouseAction(updateBtn,updateMethod.getId().toString());
+        util.addMouseAction(deleteBtn,deleteMethod.getId().toString());
+
+
+
+
+
         panel.add(label);
         panel.add(tf);
         panel.add(createBtn);
@@ -68,9 +80,9 @@ public class gui {
 
         //Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, mb);
-        JLabel rawCodeLabel = new JLabel("Raw code");
-        frame.getContentPane().add(BorderLayout.WEST, rawCodeLabel);
-        frame.getContentPane().add(BorderLayout.CENTER, result);
+        JLabel resultLabel = new JLabel("Result");
+        frame.getContentPane().add(BorderLayout.WEST, resultLabel);
+        frame.getContentPane().add(BorderLayout.EAST, output);
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
 
         // Scroll enabled

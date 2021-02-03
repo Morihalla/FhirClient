@@ -25,17 +25,13 @@ public class util {
     // ActionListener Add-method
     public static void addActionListenerMethod(JButton button, JLabel result, String text, MethodOutcome method) {
         button.addActionListener(e -> result.setText(text + method.getId().toString()));
-        String url = method.getId().toString();
-        util.addMouseAction(result,url);
     }
 
     public static void addActionListenerResource(JButton button, JLabel result, String text, Resource resource) {
         button.addActionListener(e -> result.setText(text + resource.getId()));
-        String url = resource.getId();
-        util.addMouseAction(result,url);
     }
 
-    public static void addMouseAction (JLabel click,String link) {
+    public static void addMouseAction (JButton click,String link) {
         click.addMouseListener(new MouseAdapter() {
 
             @Override
