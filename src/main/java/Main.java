@@ -4,16 +4,14 @@ import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.util.BundleUtil;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.*;
-import util.GUI;
 import util.ActionMethods;
+import util.GUI;
 import util.GeneralUtil;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static util.ActionMethods.*;
 
 public class Main implements GeneralUtil, ActionMethods {
 
@@ -104,7 +102,8 @@ public class Main implements GeneralUtil, ActionMethods {
         //Show first result
         System.out.println(searchAll.getEntry().get(0).getResource().getId());
 
-        GUI.initFrame(createOutcome,
+        GUI.initFrame(searchAll,
+                createOutcome,
                 createFromJSON,
                 createFromXML,
                 createPatient,
