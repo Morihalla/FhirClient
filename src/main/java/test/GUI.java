@@ -13,9 +13,9 @@ public class GUI {
 
     public static void initFrame(MethodOutcome createMethod,
                                  MethodOutcome createFromFile,
-                                 AllergyIntolerance readMethod,
-                                 MethodOutcome updateMethod,
-                                 MethodOutcome deleteMethod,
+//                                 AllergyIntolerance readMethod,
+//                                 MethodOutcome updateMethod,
+//                                 MethodOutcome deleteMethod,
                                  List<IBaseResource> ai) {
 
 
@@ -31,6 +31,7 @@ public class GUI {
         JMenuItem save = new JMenuItem("Save as");
         JButton searchAll = new JButton("Search ALL");
         JButton uploadBtn = new JButton("Upload");
+        
 
         file.add(open);
         file.add(save);
@@ -62,15 +63,15 @@ public class GUI {
 
 
         // Link actions to buttons
-        Util.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
-        Util.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
-        Util.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
-        Util.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
+        Util.addActionListenerMethod(createBtn, outputText, "Created: ", createFromFile);
+//        Util.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
+//        Util.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
+//        Util.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
 
         searchAll.addActionListener(e -> outputText.setText("Loaded " + ai.size() + " Allergies/Intolerances!"));
 
-        Util.uploadAction(uploadBtn);
-        Util.addActionListenerMethod(uploadBtn,outputText,"Uploaded: ",Util.uploadAction(uploadBtn));
+//        Util.uploadAction(uploadBtn);
+//        Util.addActionListenerMethod(uploadBtn,outputText,"Uploaded: ",Util.uploadAction(uploadBtn));
 
         Util.clickLink(outputText, outputText.toString());
 

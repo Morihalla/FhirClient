@@ -91,24 +91,24 @@ public class Util {
         });
     }
 
-    public static MethodOutcome uploadAction(JButton loadBtn) {
-        IParser jsonParser = (IParser) Util.ctx.newJsonParser();
-        jsonParser.setPrettyPrint(true);
-        loadBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                int returnValue = fileChooser.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                }
-            }
-//                        Desktop.getDesktop().browseFileDirectory(file = selectedFile);
-        });
-        return client.create()
-                .resource(upload.toString())
-                .execute();
-    }
+//    public static MethodOutcome uploadAction(JButton loadBtn) {
+//        IParser jsonParser = (IParser) Util.ctx.newJsonParser();
+//        jsonParser.setPrettyPrint(true);
+//        loadBtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JFileChooser fileChooser = new JFileChooser();
+//                int returnValue = fileChooser.showOpenDialog(null);
+//                if (returnValue == JFileChooser.APPROVE_OPTION) {
+//                    File selectedFile = fileChooser.getSelectedFile();
+//                }
+//            }
+////                        Desktop.getDesktop().browseFileDirectory(file = selectedFile);
+//        });
+//        return client.create()
+//                .resource(upload.toString())
+//                .execute();
+//    }
 
     // Spacing between results
     public static void printDashedLine() {

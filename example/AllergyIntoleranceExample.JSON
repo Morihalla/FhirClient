@@ -44,15 +44,15 @@
     ]
   },
   "patient": {
-    "reference": "Patient/example"
+    "reference": "Patient/2091"
   },
   "onsetDateTime": "2004",
   "recordedDate": "2014-10-09T14:58:00+11:00",
   "recorder": {
-    "reference": "Practitioner/example"
+    "reference": "Practitioner/2094"
   },
   "asserter": {
-    "reference": "Patient/example"
+    "reference": "Patient/2091"
   },
   "lastOccurrence": "2012-06",
   "note": [
