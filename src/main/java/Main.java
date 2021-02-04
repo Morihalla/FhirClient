@@ -38,25 +38,23 @@ public class Main {
         FileReader reader = new FileReader(upload);
         AllergyIntolerance allergyIntoleranceFromFile = jsonParser.parseResource(AllergyIntolerance.class, reader);
 
-//        CRUD-operations
+        // CRUD-operations
         createOutcome = client.create()
                 .resource(allergyIntolerance)
                 .execute();
 
-//         (Create Patient/Practitioner to recognize the one from the example)
-//        Patient patient = new Patient();
-//        patient.setId("example");
-//
-//        createOutcome = client.create()
-//                .resource(patient)
-//                .execute();
+        // (Create Patient/Practitioner to get the ID for the exampleFile)
+        Patient patient = new Patient();
+        patient.setId("example");
+        createPatient = client.create()
+                .resource(patient)
+                .execute();
 
-//        Practitioner practitioner = new Practitioner();
-//        practitioner.setId("example");
-//
-//        createPractitioner = client.create()
-//                .resource(practitioner)
-//                .execute();
+        Practitioner practitioner = new Practitioner();
+        practitioner.setId("example");
+        createPractitioner = client.create()
+                .resource(practitioner)
+                .execute();
 
         createFromFile = client.create()
                 .resource(allergyIntoleranceFromFile)
@@ -98,8 +96,9 @@ public class Main {
         System.out.println(searchAll.getEntry().get(0).getResource().getId());
 
         GUI.initFrame(createOutcome,
-//                createPatient, createPractitioner,
                 createFromFile,
+                createPatient,
+                createPractitioner,
 //        readOutcome, updateOutcome, deleteOutcome,
                 allergiesIntolerances);
     }
