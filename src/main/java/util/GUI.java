@@ -3,19 +3,23 @@ package util;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
+import org.hl7.fhir.r5.model.Bundle;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
-public class GUI {
+public class GUI implements GeneralUtil, ActionMethods {
 
-    public static void initFrame(MethodOutcome createMethod,
+    public static void initFrame(Bundle searchAll,
+                                 MethodOutcome createMethod,
                                  MethodOutcome createFromJson,
                                  MethodOutcome createFromXML,
                                  MethodOutcome createPatient,
                                  MethodOutcome createPractitioner,
-                                AllergyIntolerance readMethod,
+                                 AllergyIntolerance readMethod,
                                  MethodOutcome updateMethod,
                                  MethodOutcome deleteMethod,
                                  List<IBaseResource> ai) {
@@ -31,17 +35,20 @@ public class GUI {
         JMenu file = new JMenu("File");
         JMenuItem open = new JMenuItem("Open");
         JMenuItem save = new JMenuItem("Save as");
-        JButton searchAll = new JButton("Search ALL");
+        JButton searchAllBtn = new JButton("Search ALL");
         JButton uploadBtn = new JButton("Upload");
         JButton createFromFileBtn = new JButton("File Insert");
         JButton createPatientBtn = new JButton("New Patient");
         JButton createPractitionerBtn = new JButton("New Practitioner");
 
+
+
+
         file.add(open);
         file.add(save);
 
         mb.add(file);
-        mb.add(searchAll);
+        mb.add(searchAllBtn);
         mb.add(uploadBtn);
         mb.add(createFromFileBtn);
         mb.add(createPatientBtn);
@@ -72,7 +79,16 @@ public class GUI {
         // Link actions to buttons
 
         // MenuBar Actions
-        searchAll.addActionListener(e -> outputText.setText("Loaded " + ai.size() + " Allergies/Intolerances!"));
+        searchAllBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JList <String> outputStrings = new JList<String>();
+                outputStrings.add("Loaded:"  + ai.size() +  " Allergies/Intolerances!",(outputText));
+//                outputStrings.add(GeneralUtil.resultList((searchAll)));
+            }
+        });
+//    searchAllBtn.addActionListener(e -> outputText.setText("Loaded " + ai.size() + " Allergies/Intolerances!\n"
+//        + GeneralUtil.resultList(searchAll)));
         ActionMethods.addActionListenerMethod(createFromFileBtn,outputText,"Created from internal file: ",createFromJson);
         ActionMethods.addActionListenerMethod(createFromFileBtn,outputText,"Created from internal file: ",createFromXML);
         ActionMethods.addActionListenerMethod(createPatientBtn,outputText,"New patient created: ",createPatient);
@@ -99,6 +115,7 @@ public class GUI {
         panel.add(deleteBtn);
 
         //Adding Components to the frame.
+        frame.setLayout(new BorderLayout());
         frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.WEST, rawText);
         frame.getContentPane().add(BorderLayout.EAST, output);
