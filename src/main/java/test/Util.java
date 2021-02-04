@@ -1,8 +1,11 @@
 package test;
 
 import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.parser.IParser;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
+import com.google.common.base.Utf8;
+import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.Resource;
 
 import javax.swing.*;
@@ -16,10 +19,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class util {
+public class Util {
+
 
     // Create context (once) + create client
     public static FhirContext ctx = FhirContext.forR5();
+    public static File file;
+    public static File upload = new File("C:\\Users\\diete\\IdeaProjects\\FhirClient\\example\\AllergyIntoleranceExample.JSON   ");
     static String serverBase = "https://hapi.fhir.org/baseR5";
     public static IGenericClient client = ctx.newRestfulGenericClient(serverBase);
 
@@ -27,12 +33,12 @@ public class util {
     // ActionListener Add-method
     public static void addActionListenerMethod(JButton button, JLabel result, String text, MethodOutcome method) {
         button.addActionListener(e -> result.setText(text + method.getId().toString()));
-        util.addMouseAction(button,method.getId().toString());
+        Util.addMouseAction(button,method.getId().toString());
     }
 
     public static void addActionListenerResource(JButton button, JLabel result, String text, Resource resource) {
         button.addActionListener(e -> result.setText(text + resource.getId()));
-        util.addMouseAction(button,resource.getId());
+        Util.addMouseAction(button,resource.getId());
     }
 
     public static void addMouseAction(JButton click, String link) {
@@ -85,7 +91,9 @@ public class util {
         });
     }
 
-    public static void uploadAction(JButton loadBtn) {
+    public static MethodOutcome uploadAction(JButton loadBtn) {
+        IParser jsonParser = (IParser) Util.ctx.newJsonParser();
+        jsonParser.setPrettyPrint(true);
         loadBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,14 +101,13 @@ public class util {
                 int returnValue = fileChooser.showOpenDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
-                    try {
-                        Desktop.getDesktop().open(selectedFile);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
                 }
             }
+//                        Desktop.getDesktop().browseFileDirectory(file = selectedFile);
         });
+        return client.create()
+                .resource(upload.toString())
+                .execute();
     }
 
     // Spacing between results

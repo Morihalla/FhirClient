@@ -6,16 +6,18 @@ import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
 import org.hl7.fhir.r5.model.Bundle;
 import org.hl7.fhir.r5.model.IdType;
-import test.gui;
-import test.util;
+import test.GUI;
+import test.Util;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static test.util.client;
+import static test.Util.*;
 
-public class main {
+public class Main {
 
     public static void main(String[] args) throws IOException {
 
@@ -23,20 +25,27 @@ public class main {
         client.setPrettyPrint(true);
 
         // Create parsers
-        IParser jsonParser = (IParser) util.ctx.newJsonParser();
+        IParser jsonParser = (IParser) Util.ctx.newJsonParser();
         jsonParser.setPrettyPrint(true);
-        IParser xmlParser = (IParser) util.ctx.newXmlParser();
+        IParser xmlParser = (IParser) Util.ctx.newXmlParser();
         xmlParser.setPrettyPrint(true);
 
-        MethodOutcome createOutcome, updateOutcome, deleteOutcome;
+        MethodOutcome createOutcome, createFromFile, updateOutcome, deleteOutcome;
         AllergyIntolerance readOutcome;
 
         AllergyIntolerance allergyIntolerance = new AllergyIntolerance();
-        allergyIntolerance.setId("example");
+        allergyIntolerance.setId("1");
+
+        FileReader reader = new FileReader(upload);
+        AllergyIntolerance allergyIntoleranceFromFile = jsonParser.parseResource (AllergyIntolerance.class,reader);
 
         //CRUD-operations
         createOutcome = client.create()
                 .resource(allergyIntolerance)
+                .execute();
+
+        createFromFile = client.create()
+                .resource(allergyIntoleranceFromFile)
                 .execute();
 
         updateOutcome = client.update()
@@ -49,7 +58,7 @@ public class main {
 
         readOutcome = client.read()
                 .resource(AllergyIntolerance.class)
-                .withId("1902")
+                .withId("example")
                 .execute();
 
         // Search all IA's present
@@ -62,19 +71,19 @@ public class main {
 
         //Create list of every AI present
         List<IBaseResource> allergiesIntolerances = new ArrayList<>();
-        allergiesIntolerances.addAll(BundleUtil.toListOfResources(util.ctx, searchAll));
+        allergiesIntolerances.addAll(BundleUtil.toListOfResources(Util.ctx, searchAll));
 
         //Show result
         for (IBaseResource ai : allergiesIntolerances) {
             System.out.println(ai.getIdElement().getValueAsString());
         }
 
-        util.printDashedLine();
+        Util.printDashedLine();
 
         //Show first result
         System.out.println(searchAll.getEntry().get(0).getResource().getId());
 
-        gui.initFrame(createOutcome, readOutcome, updateOutcome, deleteOutcome, allergiesIntolerances);
+        GUI.initFrame(createOutcome, createFromFile, readOutcome, updateOutcome, deleteOutcome, allergiesIntolerances);
     }
 
 

@@ -1,6 +1,7 @@
 package test;
 
 import ca.uhn.fhir.rest.api.MethodOutcome;
+import org.docx4j.wml.U;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
 
@@ -8,9 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class gui {
+public class GUI {
 
     public static void initFrame(MethodOutcome createMethod,
+                                 MethodOutcome createFromFile,
                                  AllergyIntolerance readMethod,
                                  MethodOutcome updateMethod,
                                  MethodOutcome deleteMethod,
@@ -60,16 +62,17 @@ public class gui {
 
 
         // Link actions to buttons
-        util.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
-        util.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
-        util.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
-        util.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
+        Util.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
+        Util.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
+        Util.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
+        Util.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
 
         searchAll.addActionListener(e -> outputText.setText("Loaded " + ai.size() + " Allergies/Intolerances!"));
 
-        util.uploadAction(uploadBtn);
+        Util.uploadAction(uploadBtn);
+        Util.addActionListenerMethod(uploadBtn,outputText,"Uploaded: ",Util.uploadAction(uploadBtn));
 
-        util.clickLink(outputText, outputText.toString());
+        Util.clickLink(outputText, outputText.toString());
 
 
         panel.add(label);
