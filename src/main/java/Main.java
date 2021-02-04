@@ -28,9 +28,10 @@ public class Main implements GeneralUtil, ActionMethods {
 
         MethodOutcome createOutcome, createPatient, createPractitioner, createFromJSON, createFromXML, updateOutcome, deleteOutcome;
         AllergyIntolerance readOutcome;
+        IdType id = new IdType("");
 
         AllergyIntolerance allergyIntolerance = new AllergyIntolerance();
-        allergyIntolerance.setId("example");
+        allergyIntolerance.setId("24e3316e-5df0-489f-98ef-1b49d49a789c");
 
         // Read predetermined files and parse
         FileReader jsonReader = new FileReader(jsonUpload);
@@ -74,7 +75,7 @@ public class Main implements GeneralUtil, ActionMethods {
 
         readOutcome = client.read()
                 .resource(AllergyIntolerance.class)
-                .withId("2130")
+                .withId(kbd.next())
                 .execute();
 
         // Search all IA's present
@@ -111,8 +112,7 @@ public class Main implements GeneralUtil, ActionMethods {
                 readOutcome,
                 updateOutcome,
                 deleteOutcome,
-                allergiesIntolerances);
+                allergiesIntolerances,
+                id);
     }
-
-
 }

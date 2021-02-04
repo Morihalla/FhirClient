@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <AllergyIntolerance xmlns="http://hl7.org/fhir">
-  <id value="example"/> 
+  <id value="1724"/>
 
   <!--    an identifier used for this allergic propensity (adverse reaction risk)    -->
   <text> <status value="generated"/> <div xmlns="http://www.w3.org/1999/xhtml"><p> <b> Generated Narrative with Details</b> </p> <p> <b> id</b> : example</p> <p> <b> identifier</b> : 49476534</p> <p> <b> clinicalStatus</b> : Active <span> (Details : {http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical code 'active'

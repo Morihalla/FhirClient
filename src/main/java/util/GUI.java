@@ -4,6 +4,8 @@ import ca.uhn.fhir.rest.api.MethodOutcome;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
 import org.hl7.fhir.r5.model.Bundle;
+import org.hl7.fhir.r5.model.IdType;
+import org.yaml.snakeyaml.events.Event;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +13,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class GUI implements GeneralUtil, ActionMethods {
+
 
     public static void initFrame(Bundle searchAll,
                                  MethodOutcome createMethod,
@@ -23,7 +27,8 @@ public class GUI implements GeneralUtil, ActionMethods {
                                  AllergyIntolerance readMethod,
                                  MethodOutcome updateMethod,
                                  MethodOutcome deleteMethod,
-                                 List<IBaseResource> ai) {
+                                 List<IBaseResource> ai,
+                                 IdType id) {
 
 
         //Creating the Frame
@@ -106,9 +111,12 @@ public class GUI implements GeneralUtil, ActionMethods {
         ActionMethods.addActionListenerMethod(createPatientBtn,outputText,"New patient created: ",createPatient);
         ActionMethods.addActionListenerMethod(createPractitionerBtn,outputText,"New Practitioner created: ",createPractitioner);
 
-        ActionMethods.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
-//        Util.addActionListenerMethodByID(createBtn,outputText,"Created: ",createMethod);
-        ActionMethods.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
+//        ActionMethods.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
+        ActionMethods.addActionListenerMethodByID(createBtn,input,outputText,"Created : ",createMethod);
+
+        ActionMethods.addActionListenerResourceByID(readBtn,input,readMethod);
+
+//        ActionMethods.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
         ActionMethods.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
         ActionMethods.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
 
