@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Main implements GeneralUtil, ActionMethods {
 
-    public static void main(String[] args) throws IOException  {
+    public static void main(String[] args) throws IOException {
 
         client.setEncoding(EncodingEnum.XML);
         client.setPrettyPrint(true);
@@ -37,7 +37,7 @@ public class Main implements GeneralUtil, ActionMethods {
         FileReader jsonReader = new FileReader(jsonUpload);
         FileReader xmlReader = new FileReader(xmlUpload);
         AllergyIntolerance allergyIntoleranceFromJSONFile = jsonParser.parseResource(AllergyIntolerance.class, jsonReader);
-        AllergyIntolerance allergyIntolerance1FromXMLFile = xmlParser.parseResource(AllergyIntolerance.class,xmlReader);
+        AllergyIntolerance allergyIntolerance1FromXMLFile = xmlParser.parseResource(AllergyIntolerance.class, xmlReader);
 
         // CRUD-operations
         createOutcome = client.create()

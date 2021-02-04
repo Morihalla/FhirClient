@@ -22,9 +22,9 @@ public interface GeneralUtil {
     }
 
     //Create list of every AI present
-    static List<String> resultList (Bundle searchAll) {
+    static List<String> resultList(Bundle searchAll) {
 
-        List <String> lines = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
         String result;
 
         //Create list of every AI present
@@ -34,8 +34,8 @@ public interface GeneralUtil {
         //Show result
         for (IBaseResource ai : allergiesIntolerances) {
             result = ai.getIdElement().getValueAsString();
-            lines.add(result+"\n");
-    }
+            lines.add(result + "\n");
+        }
         return lines;
     }
 }

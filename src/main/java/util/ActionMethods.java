@@ -3,7 +3,6 @@ package util;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
-import org.hl7.fhir.r5.model.AllergyIntolerance;
 import org.hl7.fhir.r5.model.IdType;
 import org.hl7.fhir.r5.model.Resource;
 
@@ -43,20 +42,20 @@ public interface ActionMethods {
             @Override
             public void actionPerformed(ActionEvent e) {
                 IdType id = new IdType(input.getText());
-                ActionMethods.addMouseAction(button,method.setId(id).toString());
+                ActionMethods.addMouseAction(button, method.setId(id).toString());
                 result.setText(text + method.getId().toString());
             }
         }));
     }
 
     static void addActionListenerResourceByID(JButton button, JTextField input, Resource resource) {
-button.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        IdType id = new IdType(input.getText());
-        ActionMethods.addMouseAction(button, resource.setId(id).toString());
-    }
-});
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                IdType id = new IdType(input.getText());
+                ActionMethods.addMouseAction(button, resource.setId(id).toString());
+            }
+        });
 
     }
 
