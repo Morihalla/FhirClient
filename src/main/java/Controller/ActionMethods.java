@@ -36,12 +36,13 @@ public interface ActionMethods extends Init {
     }
 
     static void addActionListenerResourceByID(JButton button, JTextField input, JLabel result, String text, Resource resource) {
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                IdType id = new IdType(input.getText());
-                ActionMethods.addMouseAction(button, "http://hapi.fhir.org/baseR5/AllergyIntolerance/" + id);
-            }
+        button.addActionListener(e -> {
+            IdType id = new IdType(input.getText());
+            result.setText(text + resource.getId());
+            ActionMethods.addMouseAction(button, "http://hapi.fhir.org/baseR5/AllergyIntolerance/" + id);
+
+//                button.addActionListener(e -> result.setText(text + resource.getId()));
+//                .addMouseAction(button,resource.getId());
         });
 
     }
