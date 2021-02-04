@@ -1,8 +1,6 @@
-package util;
+package Controller;
 
-import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.api.MethodOutcome;
-import ca.uhn.fhir.rest.client.api.IGenericClient;
 import org.hl7.fhir.r5.model.IdType;
 import org.hl7.fhir.r5.model.Resource;
 
@@ -12,22 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Scanner;
 
-public interface ActionMethods {
-
-
-    // Create context (once) + create client
-    FhirContext ctx = FhirContext.forR5();
-    File jsonUpload = new File("C:\\Users\\diete\\IdeaProjects\\FhirClient\\example\\AllergyIntoleranceExample.JSON");
-    File xmlUpload = new File("C:\\Users\\diete\\IdeaProjects\\FhirClient\\example\\AllergyIntoleranceExample.XML");
-    String serverBase = "https://hapi.fhir.org/baseR5";
-    IGenericClient client = ctx.newRestfulGenericClient(serverBase);
-    Scanner kbd = new Scanner(System.in);
+public interface ActionMethods extends Init {
 
 
     // ActionListener Add-method
@@ -53,7 +40,7 @@ public interface ActionMethods {
             @Override
             public void actionPerformed(ActionEvent e) {
                 IdType id = new IdType(input.getText());
-                ActionMethods.addMouseAction(button,"http://hapi.fhir.org/baseR5/AllergyIntolerance/"+id);
+                ActionMethods.addMouseAction(button, "http://hapi.fhir.org/baseR5/AllergyIntolerance/" + id);
             }
         });
 

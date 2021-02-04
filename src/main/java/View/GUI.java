@@ -1,5 +1,7 @@
-package util;
+package View;
 
+import Controller.ActionMethods;
+import Controller.GeneralUtil;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
@@ -19,7 +21,7 @@ public class GUI implements GeneralUtil, ActionMethods {
                                  MethodOutcome createFromXML,
                                  MethodOutcome createPatient,
                                  MethodOutcome createPractitioner,
-                                 AllergyIntolerance readMethod,
+                                 AllergyIntolerance readByID,
                                  MethodOutcome updateMethod,
                                  MethodOutcome deleteMethod,
                                  List<IBaseResource> ai,
@@ -107,9 +109,9 @@ public class GUI implements GeneralUtil, ActionMethods {
 //        ActionMethods.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
         ActionMethods.addActionListenerMethodByID(createBtn, input, outputText, "Created : ", createMethod);
 
-        ActionMethods.addActionListenerResourceByID(readBtn,input,outputText, "Read: ",readMethod);
+        ActionMethods.addActionListenerResourceByID(readBtn, input, outputText, "Read: ", readByID);
 
-//        ActionMethods.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
+//        ActionMethods.addActionListenerResource(readBtn, outputText, "Read: ", readByID);
         ActionMethods.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
         ActionMethods.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
 
