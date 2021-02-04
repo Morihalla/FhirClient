@@ -2,41 +2,43 @@ import ca.uhn.fhir.parser.IParser;
 import ca.uhn.fhir.rest.api.EncodingEnum;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.util.BundleUtil;
-import org.docx4j.wml.P;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.*;
-import test.GUI;
-import test.Util;
+import util.GUI;
+import util.ActionMethods;
+import util.GeneralUtil;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static test.Util.*;
+import static util.ActionMethods.*;
 
-public class Main {
+public class Main implements GeneralUtil, ActionMethods {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException  {
 
         client.setEncoding(EncodingEnum.XML);
         client.setPrettyPrint(true);
 
         // Create parsers
-        IParser jsonParser = (IParser) Util.ctx.newJsonParser();
+        IParser jsonParser = (IParser) ActionMethods.ctx.newJsonParser();
         jsonParser.setPrettyPrint(true);
-        IParser xmlParser = (IParser) Util.ctx.newXmlParser();
+        IParser xmlParser = (IParser) ActionMethods.ctx.newXmlParser();
         xmlParser.setPrettyPrint(true);
 
-        MethodOutcome createOutcome, createPatient, createPractitioner, createFromFile, updateOutcome, deleteOutcome;
+        MethodOutcome createOutcome, createPatient, createPractitioner, createFromJSON, createFromXML, updateOutcome, deleteOutcome;
         AllergyIntolerance readOutcome;
 
         AllergyIntolerance allergyIntolerance = new AllergyIntolerance();
-        allergyIntolerance.setId("1");
+        allergyIntolerance.setId("example");
 
-        FileReader reader = new FileReader(upload);
-        AllergyIntolerance allergyIntoleranceFromFile = jsonParser.parseResource(AllergyIntolerance.class, reader);
+        // Read predetermined files and parse
+        FileReader jsonReader = new FileReader(jsonUpload);
+        FileReader xmlReader = new FileReader(xmlUpload);
+        AllergyIntolerance allergyIntoleranceFromJSONFile = jsonParser.parseResource(AllergyIntolerance.class, jsonReader);
+        AllergyIntolerance allergyIntolerance1FromXMLFile = xmlParser.parseResource(AllergyIntolerance.class,xmlReader);
 
         // CRUD-operations
         createOutcome = client.create()
@@ -56,22 +58,26 @@ public class Main {
                 .resource(practitioner)
                 .execute();
 
-        createFromFile = client.create()
-                .resource(allergyIntoleranceFromFile)
+        createFromJSON = client.create()
+                .resource(allergyIntoleranceFromJSONFile)
                 .execute();
 
-//        updateOutcome = client.update()
-//                .resource(allergyIntolerance.setId("new"))
-//                .execute();
+        createFromXML = client.create()
+                .resource(allergyIntolerance1FromXMLFile)
+                .execute();
 
-//        deleteOutcome = client.delete()
-//                .resourceById(new IdType("AllergyIntolerance", "1506"))
-//                .execute();
+        updateOutcome = client.update()
+                .resource(allergyIntolerance.setId("new"))
+                .execute();
 
-//        readOutcome = client.read()
-//                .resource(AllergyIntolerance.class)
-//                .withId("example")
-//                .execute();
+        deleteOutcome = client.delete()
+                .resourceById(new IdType("AllergyIntolerance", "1506"))
+                .execute();
+
+        readOutcome = client.read()
+                .resource(AllergyIntolerance.class)
+                .withId("2130")
+                .execute();
 
         // Search all IA's present
         Bundle searchAll = client
@@ -83,23 +89,29 @@ public class Main {
 
         //Create list of every AI present
         List<IBaseResource> allergiesIntolerances = new ArrayList<>();
-        allergiesIntolerances.addAll(BundleUtil.toListOfResources(Util.ctx, searchAll));
+        allergiesIntolerances.addAll(BundleUtil.toListOfResources(ActionMethods.ctx, searchAll));
 
         //Show result
         for (IBaseResource ai : allergiesIntolerances) {
             System.out.println(ai.getIdElement().getValueAsString());
         }
 
-        Util.printDashedLine();
+        GeneralUtil.printDashedLine();
+
+        System.out.println(GeneralUtil.getFileFormat(jsonUpload));
+        System.out.println(GeneralUtil.getFileFormat(xmlUpload));
 
         //Show first result
         System.out.println(searchAll.getEntry().get(0).getResource().getId());
 
         GUI.initFrame(createOutcome,
-                createFromFile,
+                createFromJSON,
+                createFromXML,
                 createPatient,
                 createPractitioner,
-//        readOutcome, updateOutcome, deleteOutcome,
+                readOutcome,
+                updateOutcome,
+                deleteOutcome,
                 allergiesIntolerances);
     }
 

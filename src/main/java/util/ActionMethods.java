@@ -1,17 +1,12 @@
-package test;
+package util;
 
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.parser.IParser;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
-import com.google.common.base.Utf8;
-import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.Resource;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -19,29 +14,34 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class Util {
+public interface ActionMethods {
 
 
     // Create context (once) + create client
-    public static FhirContext ctx = FhirContext.forR5();
-    public static File file;
-    public static File upload = new File("C:\\Users\\diete\\IdeaProjects\\FhirClient\\example\\AllergyIntoleranceExample.JSON   ");
-    static String serverBase = "https://hapi.fhir.org/baseR5";
-    public static IGenericClient client = ctx.newRestfulGenericClient(serverBase);
+    FhirContext ctx = FhirContext.forR5();
+    File jsonUpload = new File("C:\\Users\\diete\\IdeaProjects\\FhirClient\\example\\AllergyIntoleranceExample.JSON");
+    File xmlUpload = new File("C:\\Users\\diete\\IdeaProjects\\FhirClient\\example\\AllergyIntoleranceExample.XML");
+    String serverBase = "https://hapi.fhir.org/baseR5";
+    IGenericClient client = ctx.newRestfulGenericClient(serverBase);
 
 
     // ActionListener Add-method
-    public static void addActionListenerMethod(JButton button, JLabel result, String text, MethodOutcome method) {
+    static void addActionListenerMethod(JButton button, JLabel result, String text, MethodOutcome method) {
         button.addActionListener(e -> result.setText(text + method.getId().toString()));
-        Util.addMouseAction(button,method.getId().toString());
+        ActionMethods.addMouseAction(button, method.getId().toString());
     }
 
-    public static void addActionListenerResource(JButton button, JLabel result, String text, Resource resource) {
+    static void addActionListenerMethodByID(JButton button, JLabel result, String text, MethodOutcome method) {
+        button.addActionListener(e -> result.setText(text + method.getId().toString()));
+        ActionMethods.addMouseAction(button, method.getId().toString());
+    }
+
+    static void addActionListenerResource(JButton button, JLabel result, String text, Resource resource) {
         button.addActionListener(e -> result.setText(text + resource.getId()));
-        Util.addMouseAction(button,resource.getId());
+        ActionMethods.addMouseAction(button, resource.getId());
     }
 
-    public static void addMouseAction(JButton click, String link) {
+    static void addMouseAction(JButton click, String link) {
         click.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -66,7 +66,7 @@ public class Util {
         });
     }
 
-    public static void clickLink(JLabel click, String link) {
+    static void clickLink(JLabel click, String link) {
         click.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -109,10 +109,6 @@ public class Util {
 //                .resource(upload.toString())
 //                .execute();
 //    }
-
-    // Spacing between results
-    public static void printDashedLine() {
-        System.out.println("-".repeat(100));
-
-    }
 }
+
+

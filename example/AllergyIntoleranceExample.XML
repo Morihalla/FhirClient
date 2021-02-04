@@ -59,7 +59,7 @@
  
   <!--    the patient that actually has the risk of adverse reaction    -->
   <patient> 
-    <reference value="Patient/example"/> 
+    <reference value="Patient/2091"/>
   </patient> 
 
   <!--    when the allergy was first noted (in this case the same as reaction.onset of the first
@@ -71,12 +71,12 @@
   
   <!--    who made the record / last updated it    -->
   <recorder> 
-    <reference value="Practitioner/example"/> 
+    <reference value="Practitioner/2094"/>
   </recorder> 
   
   <!--    the patient is the reporter in this case    -->
   <asserter> 
-    <reference value="Patient/example"/> 
+    <reference value="Patient/2091"/>
   </asserter> 
 
   <!--    last happened June 2012. Typically, systems either track lastOccurrence,

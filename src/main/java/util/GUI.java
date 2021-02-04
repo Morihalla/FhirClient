@@ -1,7 +1,6 @@
-package test;
+package util;
 
 import ca.uhn.fhir.rest.api.MethodOutcome;
-import org.docx4j.wml.U;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
 
@@ -12,12 +11,13 @@ import java.util.List;
 public class GUI {
 
     public static void initFrame(MethodOutcome createMethod,
-                                 MethodOutcome createFromFile,
+                                 MethodOutcome createFromJson,
+                                 MethodOutcome createFromXML,
                                  MethodOutcome createPatient,
                                  MethodOutcome createPractitioner,
-//                                 AllergyIntolerance readMethod,
-//                                 MethodOutcome updateMethod,
-//                                 MethodOutcome deleteMethod,
+                                AllergyIntolerance readMethod,
+                                 MethodOutcome updateMethod,
+                                 MethodOutcome deleteMethod,
                                  List<IBaseResource> ai) {
 
 
@@ -73,20 +73,22 @@ public class GUI {
 
         // MenuBar Actions
         searchAll.addActionListener(e -> outputText.setText("Loaded " + ai.size() + " Allergies/Intolerances!"));
-        Util.addActionListenerMethod(createFromFileBtn,outputText,"Created from internal file: ",createFromFile);
-        Util.addActionListenerMethod(createPatientBtn,outputText,"New patient created: ",createPatient);
-        Util.addActionListenerMethod(createPractitionerBtn,outputText,"New Practitioner created: ",createPractitioner);
+        ActionMethods.addActionListenerMethod(createFromFileBtn,outputText,"Created from internal file: ",createFromJson);
+        ActionMethods.addActionListenerMethod(createFromFileBtn,outputText,"Created from internal file: ",createFromXML);
+        ActionMethods.addActionListenerMethod(createPatientBtn,outputText,"New patient created: ",createPatient);
+        ActionMethods.addActionListenerMethod(createPractitionerBtn,outputText,"New Practitioner created: ",createPractitioner);
 
-        Util.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
-//        Util.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
-//        Util.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
-//        Util.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
+        ActionMethods.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
+//        Util.addActionListenerMethodByID(createBtn,outputText,"Created: ",createMethod);
+        ActionMethods.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
+        ActionMethods.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
+        ActionMethods.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
 
 
 //        Util.uploadAction(uploadBtn);
 //        Util.addActionListenerMethod(uploadBtn,outputText,"Uploaded: ",Util.uploadAction(uploadBtn));
 
-        Util.clickLink(outputText, outputText.toString());
+        ActionMethods.clickLink(outputText, outputText.toString());
 
 
         panel.add(label);
