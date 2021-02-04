@@ -2,7 +2,6 @@ package util;
 
 import ca.uhn.fhir.util.BundleUtil;
 import org.hl7.fhir.instance.model.api.IBaseResource;
-import org.hl7.fhir.r5.model.AllergyIntolerance;
 import org.hl7.fhir.r5.model.Bundle;
 
 import java.io.File;
@@ -19,12 +18,11 @@ public interface GeneralUtil {
 
     // Check for Json or XML
     static String getFileFormat(File file) {
-        String format = file.getName().substring(file.getName().lastIndexOf("."));
-        return format;
+        return file.getName().substring(file.getName().lastIndexOf("."));
     }
 
     //Create list of every AI present
-    static List <String> resultList (Bundle searchAll) {
+    static List<String> resultList (Bundle searchAll) {
 
         List <String> lines = new ArrayList<>();
         String result;

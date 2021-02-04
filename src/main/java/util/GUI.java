@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GUI implements GeneralUtil, ActionMethods {
@@ -67,7 +68,7 @@ public class GUI implements GeneralUtil, ActionMethods {
         //Creating the panel at bottom
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Entry");
-        JTextField tf = new JTextField("Enter code here", 10);
+        JTextField input = new JTextField("Enter code here", 10);
 
         // Creating Buttons
         JButton createBtn = new JButton("Create");
@@ -79,16 +80,27 @@ public class GUI implements GeneralUtil, ActionMethods {
         // Link actions to buttons
 
         // MenuBar Actions
-        searchAllBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JList <String> outputStrings = new JList<String>();
-                outputStrings.add("Loaded:"  + ai.size() +  " Allergies/Intolerances!",(outputText));
+//        TODO: Get Count + list as output
+//        searchAllBtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+////                String outputCount = "Loaded:"  + ai.size() +  " Allergies/Intolerances!";
+//                JList <Object> letsTry = new JList();
+//                letsTry.setListData(GeneralUtil.resultList(searchAll).toArray());
+//                List resultlist = null;
+//                resultlist.add(GeneralUtil.resultList(searchAll));
+//                JList <String> outputLines = new JList<String>((String[]) resultlist.toArray());
+//                outputList.add(String.valueOf(outputCount));
+//                output.add((Component) outputList);
+//                output.add((Component) resultlist);
+//                outputLines.add(GeneralUtil.resultList(searchAll))
 //                outputStrings.add(GeneralUtil.resultList((searchAll)));
-            }
-        });
+//            }
+//        });
 //    searchAllBtn.addActionListener(e -> outputText.setText("Loaded " + ai.size() + " Allergies/Intolerances!\n"
 //        + GeneralUtil.resultList(searchAll)));
+
+        // TODO: Get input from user
         ActionMethods.addActionListenerMethod(createFromFileBtn,outputText,"Created from internal file: ",createFromJson);
         ActionMethods.addActionListenerMethod(createFromFileBtn,outputText,"Created from internal file: ",createFromXML);
         ActionMethods.addActionListenerMethod(createPatientBtn,outputText,"New patient created: ",createPatient);
@@ -108,7 +120,7 @@ public class GUI implements GeneralUtil, ActionMethods {
 
 
         panel.add(label);
-        panel.add(tf);
+        panel.add(input);
         panel.add(createBtn);
         panel.add(readBtn);
         panel.add(updateBtn);
