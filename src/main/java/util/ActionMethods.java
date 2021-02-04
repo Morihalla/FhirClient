@@ -48,12 +48,12 @@ public interface ActionMethods {
         }));
     }
 
-    static void addActionListenerResourceByID(JButton button, JTextField input, Resource resource) {
+    static void addActionListenerResourceByID(JButton button, JTextField input, JLabel result, String text, Resource resource) {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 IdType id = new IdType(input.getText());
-                ActionMethods.addMouseAction(button, resource.setId(id).toString());
+                ActionMethods.addMouseAction(button,"http://hapi.fhir.org/baseR5/AllergyIntolerance/"+id);
             }
         });
 

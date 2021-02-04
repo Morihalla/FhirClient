@@ -107,7 +107,7 @@ public class GUI implements GeneralUtil, ActionMethods {
 //        ActionMethods.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
         ActionMethods.addActionListenerMethodByID(createBtn, input, outputText, "Created : ", createMethod);
 
-        ActionMethods.addActionListenerResourceByID(readBtn, input, readMethod);
+        ActionMethods.addActionListenerResourceByID(readBtn,input,outputText, "Read: ",readMethod);
 
 //        ActionMethods.addActionListenerResource(readBtn, outputText, "Read: ", readMethod);
         ActionMethods.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
