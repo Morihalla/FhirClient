@@ -1,14 +1,14 @@
-package Model;
+package model;
 
-import Controller.ActionMethods;
-import Controller.GeneralUtil;
-import Controller.Init;
+import controller.ActionMethods;
+import controller.GeneralUtil;
+import controller.Init;
 
 import java.io.IOException;
 
-import static java.lang.System.out;
-
 public class Main implements GeneralUtil, ActionMethods, Init {
+
+    static String url = "http://hapi.fhir.org/baseR5/AllergyIntolerance";
 
     public static void main(String[] args) throws IOException {
 
@@ -16,8 +16,9 @@ public class Main implements GeneralUtil, ActionMethods, Init {
 
         GeneralUtil.printDashedLine();
 
-        out.println(GeneralUtil.getFileFormat(jsonUpload));
-        out.println(GeneralUtil.getFileFormat(xmlUpload));
+        //Test to get extention of files
+        logger.info(GeneralUtil.getFileFormat(jsonUpload));
+        logger.info(GeneralUtil.getFileFormat(xmlUpload));
 
 
     }

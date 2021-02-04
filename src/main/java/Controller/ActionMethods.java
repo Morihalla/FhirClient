@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import org.hl7.fhir.r5.model.IdType;
@@ -38,8 +38,9 @@ public interface ActionMethods extends Init {
     static void addActionListenerResourceByID(JButton button, JTextField input, JLabel result, String text, Resource resource) {
         button.addActionListener(e -> {
             IdType id = new IdType(input.getText());
+            String url = (Init.SERVER_BASE.concat("/AllergyIntolerance/"+id));
             result.setText(text + resource.getId());
-            ActionMethods.addMouseAction(button, "http://hapi.fhir.org/baseR5/AllergyIntolerance/" + id);
+            ActionMethods.addMouseAction(button, url);
 
 //                button.addActionListener(e -> result.setText(text + resource.getId()));
 //                .addMouseAction(button,resource.getId());

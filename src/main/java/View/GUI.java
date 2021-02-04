@@ -1,7 +1,7 @@
-package View;
+package view;
 
-import Controller.ActionMethods;
-import Controller.GeneralUtil;
+import controller.ActionMethods;
+import controller.GeneralUtil;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
@@ -30,7 +30,7 @@ public class GUI implements GeneralUtil, ActionMethods {
 
         //Creating the Frame
         JFrame frame = new JFrame("FHIR-client");
-        frame.setBounds(100, 100, 600, 300);
+        frame.setBounds(100, 100, 600, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Creating the MenuBar and adding components
@@ -44,7 +44,6 @@ public class GUI implements GeneralUtil, ActionMethods {
         JButton createPatientBtn = new JButton("New Patient");
         JButton createPractitionerBtn = new JButton("New Practitioner");
 
-
         file.add(open);
         file.add(save);
 
@@ -56,14 +55,13 @@ public class GUI implements GeneralUtil, ActionMethods {
         mb.add(createPractitionerBtn);
 
         // Design Output
-        JLabel rawText = new JLabel("Raw text");
-
-        JTextArea output = new JTextArea();
+        JLabel rawText = new JLabel("Output");
+//        JTextArea output = new JTextArea();
         JLabel outputText = new JLabel();
         outputText.setForeground(Color.BLUE.darker());
         outputText.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        output.add(outputText);
+//        output.add(outputText);
 
         //Creating the panel at bottom
         JPanel panel = new JPanel();
@@ -133,7 +131,7 @@ public class GUI implements GeneralUtil, ActionMethods {
         frame.setLayout(new BorderLayout());
         frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.WEST, rawText);
-        frame.getContentPane().add(BorderLayout.EAST, output);
+        frame.getContentPane().add(BorderLayout.EAST, outputText);
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
 
         // Scroll enabled
