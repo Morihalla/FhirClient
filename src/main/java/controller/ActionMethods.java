@@ -1,6 +1,7 @@
 package controller;
 
 import ca.uhn.fhir.rest.api.MethodOutcome;
+import org.hl7.fhir.r5.model.AllergyIntolerance;
 import org.hl7.fhir.r5.model.IdType;
 import org.hl7.fhir.r5.model.Resource;
 
@@ -14,12 +15,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public interface ActionMethods extends Init {
+public interface ActionMethods {
 
 
     // ActionListener Add-method
-    static void addActionListenerMethod(JButton button, JLabel result, String text, MethodOutcome method) {
-        button.addActionListener(e -> result.setText(text + method.getId().toString()));
+    static void addActionListenerMethod(JButton button, JLabel result, String text, MethodOutcome method, JTextField id) {
+        button.addActionListener(e -> result.setText(text + id.getText()));
+        method.setId(new IdType(id.getText()));
         ActionMethods.addMouseAction(button, method.getId().toString());
     }
 
@@ -29,24 +31,31 @@ public interface ActionMethods extends Init {
             @Override
             public void actionPerformed(ActionEvent e) {
                 IdType id = new IdType(input.getText());
-                ActionMethods.addMouseAction(button, method.setId(id).toString());
+                method.setId(id);
                 result.setText(text + method.getId().toString());
+                ActionMethods.addMouseAction(button, method.getId().toString());
             }
         }));
     }
 
     static void addActionListenerResourceByID(JButton button, JTextField input, JLabel result, String text, Resource resource) {
-        button.addActionListener(e -> {
-            IdType id = new IdType(input.getText());
-            String url = (Init.SERVER_BASE.concat("/AllergyIntolerance/"+id));
-            result.setText(text + resource.getId());
-            ActionMethods.addMouseAction(button, url);
+        IdType id = new IdType(input.getText());
+        Init.allergyIntolerance.setId(id);
+        resource = (Resource) Init.readByID.setId(id);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String url = (Init.SERVER_BASE.concat("/AllergyIntolerance/" + id));
+                result.setText(text + id.toString());
+                ActionMethods.addMouseAction(button, url);
 
 //                button.addActionListener(e -> result.setText(text + resource.getId()));
 //                .addMouseAction(button,resource.getId());
-        });
 
-    }
+
+            }
+        });
+        }
 
     static void addActionListenerResource(JButton button, JLabel result, String text, Resource resource) {
         button.addActionListener(e -> result.setText(text + resource.getId()));

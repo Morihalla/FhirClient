@@ -3,6 +3,7 @@ package view;
 import controller.ActionMethods;
 import controller.GeneralUtil;
 import ca.uhn.fhir.rest.api.MethodOutcome;
+import controller.Init;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.AllergyIntolerance;
 import org.hl7.fhir.r5.model.Bundle;
@@ -14,20 +15,7 @@ import java.util.List;
 
 public class GUI implements GeneralUtil, ActionMethods {
 
-
-    public static void initFrame(Bundle searchAll,
-                                 MethodOutcome createMethod,
-                                 MethodOutcome createFromJson,
-                                 MethodOutcome createFromXML,
-                                 MethodOutcome createPatient,
-                                 MethodOutcome createPractitioner,
-                                 AllergyIntolerance readByID,
-                                 MethodOutcome updateMethod,
-                                 MethodOutcome deleteMethod,
-                                 List<IBaseResource> ai,
-                                 IdType id) {
-
-
+    public GUI() {
         //Creating the Frame
         JFrame frame = new JFrame("FHIR-client");
         frame.setBounds(100, 100, 600, 200);
@@ -61,8 +49,6 @@ public class GUI implements GeneralUtil, ActionMethods {
         outputText.setForeground(Color.BLUE.darker());
         outputText.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-//        output.add(outputText);
-
         //Creating the panel at bottom
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Entry");
@@ -73,51 +59,6 @@ public class GUI implements GeneralUtil, ActionMethods {
         JButton readBtn = new JButton("Read");
         JButton updateBtn = new JButton("Update");
         JButton deleteBtn = new JButton("Delete");
-
-
-        // Link actions to buttons
-
-        // MenuBar Actions
-//        TODO: Get Count + list as output
-//        searchAllBtn.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-////                String outputCount = "Loaded:"  + ai.size() +  " Allergies/Intolerances!";
-//                JList <Object> letsTry = new JList();
-//                letsTry.setListData(GeneralUtil.resultList(searchAll).toArray());
-//                List resultlist = null;
-//                resultlist.add(GeneralUtil.resultList(searchAll));
-//                JList <String> outputLines = new JList<String>((String[]) resultlist.toArray());
-//                outputList.add(String.valueOf(outputCount));
-//                output.add((Component) outputList);
-//                output.add((Component) resultlist);
-//                outputLines.add(GeneralUtil.resultList(searchAll))
-//                outputStrings.add(GeneralUtil.resultList((searchAll)));
-//            }
-//        });
-//    searchAllBtn.addActionListener(e -> outputText.setText("Loaded " + ai.size() + " Allergies/Intolerances!\n"
-//        + GeneralUtil.resultList(searchAll)));
-
-        // TODO: Get input from user
-        ActionMethods.addActionListenerMethod(createFromFileBtn, outputText, "Created from internal file: ", createFromJson);
-        ActionMethods.addActionListenerMethod(createFromFileBtn, outputText, "Created from internal file: ", createFromXML);
-        ActionMethods.addActionListenerMethod(createPatientBtn, outputText, "New patient created: ", createPatient);
-        ActionMethods.addActionListenerMethod(createPractitionerBtn, outputText, "New Practitioner created: ", createPractitioner);
-
-//        ActionMethods.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
-        ActionMethods.addActionListenerMethodByID(createBtn, input, outputText, "Created : ", createMethod);
-
-        ActionMethods.addActionListenerResourceByID(readBtn, input, outputText, "Read: ", readByID);
-
-//        ActionMethods.addActionListenerResource(readBtn, outputText, "Read: ", readByID);
-        ActionMethods.addActionListenerMethod(updateBtn, outputText, "Updated: ", updateMethod);
-        ActionMethods.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", deleteMethod);
-
-
-//        Util.uploadAction(uploadBtn);
-//        Util.addActionListenerMethod(uploadBtn,outputText,"Uploaded: ",Util.uploadAction(uploadBtn));
-
-        ActionMethods.clickLink(outputText, outputText.toString());
 
 
         panel.add(label);
@@ -143,5 +84,71 @@ public class GUI implements GeneralUtil, ActionMethods {
         frame.add(scroll);
         frame.setVisible(true);
 
+        // TODO: Get input from user
+//        ActionMethods.addActionListenerMethod(createFromFileBtn, outputText, "Created from internal file: ", Init.getCreateFromJSON());
+//        ActionMethods.addActionListenerMethod(createFromFileBtn, outputText, "Created from internal file: ", Init.createFromXML);
+//        ActionMethods.addActionListenerMethod(createPatientBtn, outputText, "New patient created: ", Init.getCreatePatient(),new IdType((input.getText(Init.kbd.next()))));
+//        ActionMethods.addActionListenerMethod(createPractitionerBtn, outputText, "New Practitioner created: ", Init.createPractitioner);
+
+//        ActionMethods.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
+
+        ActionMethods.addActionListenerMethodByID(createBtn, input, outputText, "Created: ",Init.createOutcome);
+        ActionMethods.addActionListenerResourceByID(readBtn, input, outputText, "Read: ", new AllergyIntolerance());
+
+//        ActionMethods.addActionListenerResource(readBtn, outputText, "Read: ", readByID);
+//        ActionMethods.addActionListenerMethod(updateBtn, outputText, "Updated: ", Init.updateOutcome);
+//        ActionMethods.addActionListenerMethod(deleteBtn, outputText, "Deleted: ", Init.deleteByID);
+
+
+//        Util.uploadAction(uploadBtn);
+//        Util.addActionListenerMethod(uploadBtn,outputText,"Uploaded: ",Util.uploadAction(uploadBtn));
+
+        ActionMethods.clickLink(outputText, outputText.toString());
+
+
     }
+
+    public static void initFrame(Bundle searchAll,
+                                 MethodOutcome createMethod,
+                                 MethodOutcome createFromJson,
+                                 MethodOutcome createFromXML,
+                                 MethodOutcome createPatient,
+                                 MethodOutcome createPractitioner,
+                                 AllergyIntolerance readByID,
+                                 MethodOutcome updateMethod,
+                                 MethodOutcome deleteMethod,
+                                 List<IBaseResource> ai,
+                                 IdType id) {
+
+
+//        output.add(outputText);
+
+
+        // Link actions to buttons
+
+        // MenuBar Actions
+//        TODO: Get Count + list as output
+//        searchAllBtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+////                String outputCount = "Loaded:"  + ai.size() +  " Allergies/Intolerances!";
+//                JList <Object> letsTry = new JList();
+//                letsTry.setListData(GeneralUtil.resultList(searchAll).toArray());
+//                List resultlist = null;
+//                resultlist.add(GeneralUtil.resultList(searchAll));
+//                JList <String> outputLines = new JList<String>((String[]) resultlist.toArray());
+//                outputList.add(String.valueOf(outputCount));
+//                output.add((Component) outputList);
+//                output.add((Component) resultlist);
+//                outputLines.add(GeneralUtil.resultList(searchAll))
+//                outputStrings.add(GeneralUtil.resultList((searchAll)));
+//            }
+//        });
+//    searchAllBtn.addActionListener(e -> outputText.setText("Loaded " + ai.size() + " Allergies/Intolerances!\n"
+//        + GeneralUtil.resultList(searchAll)));
+
+
+    }
+
+
 }

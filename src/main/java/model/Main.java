@@ -3,22 +3,24 @@ package model;
 import controller.ActionMethods;
 import controller.GeneralUtil;
 import controller.Init;
+import view.GUI;
 
-import java.io.IOException;
+import java.io.IOException;;
 
-public class Main implements GeneralUtil, ActionMethods, Init {
-
-    static String url = "http://hapi.fhir.org/baseR5/AllergyIntolerance";
+public class Main implements GeneralUtil, ActionMethods {
 
     public static void main(String[] args) throws IOException {
 
-        Init.initMain();
+
+        GUI gui = new GUI();
+
+        Init.initMain(gui);
 
         GeneralUtil.printDashedLine();
 
         //Test to get extention of files
-        logger.info(GeneralUtil.getFileFormat(jsonUpload));
-        logger.info(GeneralUtil.getFileFormat(xmlUpload));
+        Init.logger.info(GeneralUtil.getFileFormat(Init.jsonUpload));
+        Init.logger.info(GeneralUtil.getFileFormat(Init.xmlUpload));
 
 
     }

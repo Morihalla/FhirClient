@@ -2,7 +2,7 @@ package controller;
 
 import java.io.File;
 
-public interface GeneralUtil extends Init {
+public interface GeneralUtil {
 
     // Spacing between results
     static void printDashedLine() {
