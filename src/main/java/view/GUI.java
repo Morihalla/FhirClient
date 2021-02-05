@@ -84,6 +84,8 @@ public class GUI implements GeneralUtil, ActionMethods {
         frame.add(scroll);
         frame.setVisible(true);
 
+        AllergyIntolerance resource = (AllergyIntolerance) new AllergyIntolerance().setId(input.getText());
+
         // TODO: Get input from user
 //        ActionMethods.addActionListenerMethod(createFromFileBtn, outputText, "Created from internal file: ", Init.getCreateFromJSON());
 //        ActionMethods.addActionListenerMethod(createFromFileBtn, outputText, "Created from internal file: ", Init.createFromXML);
@@ -93,7 +95,7 @@ public class GUI implements GeneralUtil, ActionMethods {
 //        ActionMethods.addActionListenerMethod(createBtn, outputText, "Created: ", createMethod);
 
         ActionMethods.addActionListenerMethodByID(createBtn, input, outputText, "Created: ",Init.createOutcome);
-        ActionMethods.addActionListenerResourceByID(readBtn, input, outputText, "Read: ", new AllergyIntolerance());
+        ActionMethods.addActionListenerResourceByID(readBtn, input, outputText, "Read: ", resource.setId(input.getText()));
 
 //        ActionMethods.addActionListenerResource(readBtn, outputText, "Read: ", readByID);
 //        ActionMethods.addActionListenerMethod(updateBtn, outputText, "Updated: ", Init.updateOutcome);

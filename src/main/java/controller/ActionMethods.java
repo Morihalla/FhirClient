@@ -40,13 +40,12 @@ public interface ActionMethods {
 
     static void addActionListenerResourceByID(JButton button, JTextField input, JLabel result, String text, Resource resource) {
         IdType id = new IdType(input.getText());
-        Init.allergyIntolerance.setId(id);
-        resource = (Resource) Init.readByID.setId(id);
+        //TODO: get output
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String url = (Init.SERVER_BASE.concat("/AllergyIntolerance/" + id));
                 result.setText(text + id.toString());
+                String url = (Init.SERVER_BASE.concat("/AllergyIntolerance/" + id));
                 ActionMethods.addMouseAction(button, url);
 
 //                button.addActionListener(e -> result.setText(text + resource.getId()));
